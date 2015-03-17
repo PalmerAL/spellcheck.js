@@ -5,7 +5,7 @@ var correct_display = document.querySelector("#correct");
 
 
 input.onkeyup = function() {
-    output.innerHTML = getBestReplacement(input.value);
+    output.innerHTML = getBestReplacement(input.value).value;
     suggestions.innerHTML = getSuggestions(input.value);
     correct_display.innerHTML = checkSpelling(input.value);
 }
