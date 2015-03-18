@@ -133,13 +133,15 @@ var commonMisspellings = [
 	["apoi", "appoi"],
 	[" sert", " cert"],
 	["q", "qu"],
-	["mx", "max"], ]
+	["mx", "max"],
+	["lnd", "land"],
+]
 
 	function getLinguisticMatch(word) {
 		var linguisticMatch = " " + word.toLowerCase() + " ";
 		for (var i = 0; i < commonMisspellings.length; i++) {
-			var search = new RegExp(commonMisspellings[i][0].toUpperCase(), "g");
-			linguisticMatch = linguisticMatch.replace(search, commonMisspellings[i][1].toUpperCase());
+			var search = new RegExp(commonMisspellings[i][0].toLowerCase(), "g");
+			linguisticMatch = linguisticMatch.replace(search, commonMisspellings[i][1].toLowerCase());
 		}
 		return linguisticMatch.replace(/\s/g, ""); //remove the whitespace we added earlier
 	}
