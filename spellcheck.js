@@ -92,10 +92,11 @@ function getVowelRatio(word) {
     }
 
 function checkSpelling(word) {
+		var input = " " + word.toLowerCase() + " ";
     var correct = true;
-    if(word.length > 1) {
+    if(input.length > 1) {
     bannedStrings.forEach(function(value) {
-        if((" " + word + " ").indexOf(value) > -1) { //it contains a banned string
+        if(input.indexOf(value) > -1) { //it contains a banned string
             correct = false;
             cancelers.forEach(function(canceler) {
                 if(value == canceler[0] && (" " + word + " ").indexOf(canceler[1]) > -1) { //the rule is negated by a canceler
@@ -107,7 +108,7 @@ function checkSpelling(word) {
     if(exceptions.indexOf(word) > -1) {
         correct = true;
     }
-		var syllables = word.match(/.{1,4}/g); //splits the word into syllable-sized chunks
+		var syllables = input.match(/.{1,4}/g); //splits the word into syllable-sized chunks
 		syllables.forEach(function(value) {
 			if(getVowelRatio(value) < 0.2 && value.length > 3) { //the word doesn't have a vowel within a syllable-sized chunk of it, so it is probably spelled wrong
 				correct = false;
@@ -135,15 +136,15 @@ var commonMisspellings = [
 		[" sert", " cert"],
     ["q", "qu"],
     ["mx", "max"],
-    ]
+     ]
 
 function getLinguisticMatch(word) {
-    var linguisticMatch = " " + word.toUpperCase() + " ";
+    var linguisticMatch = " " + word.toLowerCase() + " ";
     for (var i = 0; i < commonMisspellings.length; i++) {
         var search = new RegExp(commonMisspellings[i][0].toUpperCase(), "g");
         linguisticMatch = linguisticMatch.replace(search, commonMisspellings[i][1].toUpperCase());
     }
-    return linguisticMatch.toLowerCase().replace(/\s/g, ""); //remove the whitespace we added earlier
+    return linguisticMatch.replace(/\s/g, ""); //remove the whitespace we added earlier
 }
 
 function getBestReplacement(word) {
