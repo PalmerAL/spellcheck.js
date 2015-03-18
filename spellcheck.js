@@ -97,7 +97,7 @@ var cancelers = [ //exceptions to the banned strings above
 				if (input.indexOf(value) > -1) { //it contains a banned string
 					correct = false;
 					cancelers.forEach(function (canceler) {
-						if (value == canceler[0] && (" " + word + " ").indexOf(canceler[1]) > -1) { //the rule is negated by a canceler
+						if (value == canceler[0] && input.indexOf(canceler[1].toLowerCase()) > -1) { //the rule is negated by a canceler
 							correct = true;
 						}
 					});
@@ -106,7 +106,7 @@ var cancelers = [ //exceptions to the banned strings above
 			if (exceptions.indexOf(word) > -1) {
 				correct = true;
 			}
-			var syllables = input.match(/.{1,4}/g); //splits the word into syllable-sized chunks
+			var syllables = input.replace(/\s/g, "").match(/.{1,4}/g); //splits the word into syllable-sized chunks after removing any whitespace
 			syllables.forEach(function (value) {
 				if (getVowelRatio(value) < 0.2 && value.length > 3) { //the word doesn't have a vowel within a syllable-sized chunk of it, so it is probably spelled wrong
 					correct = false;
