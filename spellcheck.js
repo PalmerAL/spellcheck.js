@@ -180,7 +180,7 @@ var commonMisspellings = [
 		var suggestionList = [];
 		dictionary.forEach(function (value) {
 			tempdiff = sift4(word.toUpperCase(), value.toUpperCase());
-			if (tempdiff / value.length <= 0.3 || (tempdiff / value.length <= 0.5 && suggestionList.length < 4)) ) {
+			if (tempdiff / value.length <= 0.3 || (tempdiff / value.length <= 0.5 && suggestionList.length < 4)) {
 				suggestionList.push(value);
 			}
 		});
