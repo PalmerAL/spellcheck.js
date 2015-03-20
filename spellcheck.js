@@ -142,6 +142,11 @@ var commonMisspellings = [
 	["mx", "max"],
 	["lnd", "land"],
 	["ms", "mis"],
+	["vv", "v"],
+	["jj", "j"],
+	["kk", "k"],
+	["ww", "w"],
+	["xx", "x"],
 ]
 
 	function getLinguisticMatch(word) {
