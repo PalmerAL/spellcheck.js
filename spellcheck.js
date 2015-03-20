@@ -92,7 +92,7 @@ var cancelers = [ //exceptions to the banned strings above
 	function checkSpelling(word) {
 		var input = " " + word.toLowerCase() + " ";
 		var correct = true;
-		if (input.length > 1) {
+		if (input.length > 3) {
 			bannedStrings.forEach(function (value) {
 				if (input.indexOf(value) > -1) { //it contains a banned string
 					correct = false;
@@ -107,11 +107,17 @@ var cancelers = [ //exceptions to the banned strings above
 				correct = true;
 			}
 			var syllables = input.replace(/\s/g, "").match(/.{1,4}/g); //splits the word into syllable-sized chunks after removing any whitespace
+			if(syllables) { //make sure there are actually some syllables to check
 			syllables.forEach(function (value) {
 				if (getVowelRatio(value) < 0.2 && value.length > 3) { //the word doesn't have a vowel within a syllable-sized chunk of it, so it is probably spelled wrong
 					correct = false;
 				}
 			});
+			}
+			
+			if(getVowelRatio(input.replace(/\s/g, "")) < 0.2) { //check the overall word, just to be sure
+				correct = false;
+			}
 
 			return correct;
 		} else { //1-letter words should always return true
@@ -135,6 +141,7 @@ var commonMisspellings = [
 	["q", "qu"],
 	["mx", "max"],
 	["lnd", "land"],
+	["ms", "mis"],
 ]
 
 	function getLinguisticMatch(word) {
