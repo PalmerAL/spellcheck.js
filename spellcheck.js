@@ -147,6 +147,7 @@ var commonMisspellings = [
 	["kk", "k"],
 	["ww", "w"],
 	["xx", "x"],
+	["pld", "pelled"],
 ]
 
 	function getLinguisticMatch(word) {
