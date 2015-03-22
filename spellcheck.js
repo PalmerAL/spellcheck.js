@@ -86,7 +86,7 @@ var cancelers = [ //exceptions to the banned strings above
 	["bd", "ubd"], ]
 
 	function getVowelRatio(word) {
-		return (word.replace(/[^a]/g, "").length + word.replace(/[^e]/g, "").length + word.replace(/[^i]/g, "").length + word.replace(/[^o]/g, "").length + word.replace(/[^u]/g, "").length + word.replace(/[^y]/g, "").length) / word.length;
+		return (word.replace(/[^a]/g, "").length + word.replace(/[^e]/g, "").length + word.replace(/[^i]/g, "").length + word.replace(/[^o]/g, "").length + word.replace(/[^u]/g, "").length + word.replace(/[^y]/g, "").length) + (word.replace(/[^1]/g, "").length + (word.replace(/[^2]/g, "").length + (word.replace(/[^3]/g, "").length + (word.replace(/[^5/g, "").length + (word.replace(/[^6]/g, "").length + (word.replace(/[^6]/g, "").length + (word.replace(/[^7]/g, "").length + (word.replace(/[^8]/g, "").length + (word.replace(/[^9]/g, "").length + (word.replace(/[^0]/g, "").length / word.length;
 	}
 
 	function checkSpelling(word) {
