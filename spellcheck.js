@@ -90,7 +90,7 @@ var cancelers = [ //exceptions to the banned strings above
 	}
 
 	function checkSpelling(word) {
-		var input = " " + word.toLowerCase() + " ";
+		var input = " " + word.toLowerCase().replace(";", "").replace(":", "").replace(",", "").replace("'").replace('"') + " "; //ignore punctuation characters
 		var correct = true;
 		if (input.length > 3) {
 			bannedStrings.forEach(function (value) {
