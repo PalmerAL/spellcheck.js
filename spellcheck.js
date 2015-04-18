@@ -81,7 +81,48 @@ var cancelers = [ //exceptions to the banned strings above
 	["bd", "abd"],
 	["bd", "ubd"],
 	["cie", "scie"],
+	["bd", "ubd"],
 ]
+
+function getVowelRatio(word) {
+	return (word.replace(/[^a]/g, "").length + word.replace(/[^e]/g, "").length + word.replace(/[^i]/g, "").length + word.replace(/[^o]/g, "").length + word.replace(/[^u]/g, "").length + word.replace(/[^y]/g, "").length + word.replace(/[^1]/g, "").length + word.replace(/[^2]/g, "").length + word.replace(/[^3]/g, "").length + word.replace(/[^5]/g, "").length + word.replace(/[^6]/g, "").length + word.replace(/[^6]/g, "").length + word.replace(/[^7]/g, "").length + word.replace(/[^8]/g, "").length + word.replace(/[^9]/g, "").length + word.replace(/[^0]/g, "").length / word.length);
+}
+
+function checkSpelling(word) {
+	var input = " " + word.toLowerCase().replace(/\W/g, ""); //ignore punctuation characters
+	var correct = true;
+	if (input.length > 3) {
+		bannedStrings.forEach(function (value) {
+			if (input.indexOf(value) > -1) { //it contains a banned string
+				correct = false;
+				cancelers.forEach(function (canceler) {
+					if (value == canceler[0] && input.indexOf(canceler[1].toLowerCase()) > -1) { //the rule is negated by a canceler
+						correct = true;
+					}
+				});
+			}
+		});
+		if (dictionary.indexOf(word) > -1) {
+			correct = true;
+		}
+		var syllables = input.replace(/\s/g, "").match(/.{1,4}/g); //splits the word into syllable-sized chunks after removing any whitespace
+		if (syllables) { //make sure there are actually some syllables to check
+			syllables.forEach(function (value) {
+				if (getVowelRatio(value) < 0.2 && value.length > 3) { //the word doesn't have a vowel within a syllable-sized chunk of it, so it is probably spelled wrong
+					correct = false;
+				}
+			});
+		}
+
+		if (getVowelRatio(input.replace(/\s/g, "")) < 0.2) { //check the overall word, just to be sure
+			correct = false;
+		}
+
+		return correct;
+	} else { //1-letter words should always return true
+		return true;
+	}
+}
 
 var commonMisspellings = [
 	["ei", "ie"],
