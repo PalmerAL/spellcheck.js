@@ -151,6 +151,29 @@ var commonMisspellings = [
 	["esf", "essf"], //successful
 	["shh", "sh"], //threshold
 	["wier", "weir"], //weird
+	["mobl", "mbol"], //symbol
+	["ilx", "lix"], //netflix
+	["iesu", "eisu"], //leisure
+	["lisen", "licen"],
+	["atos ", "atoes "], //potatoes, tomatoes
+	["tuer", "teur"], //amateur
+	["oflag", "ouflag"], //camouflage,
+	["oncio", "onscio"], //conscious
+	["urgler", "urglar"], //burglar
+	["alcho", "alco"], //alcohol
+	["yae", "yea"], //year
+	["seff", "self"], //yourself
+	["efl ", "elf "], //yourself
+	["yot", "yout"], //youtube
+	["whan", "wan"], //wants
+	["irut", "irtu"], //virtual
+	["wirt", "writ"], //writing
+	["wna", "wan"], //want
+	["aht", "hat"], //what
+	["ihc", "ich"], //rich, which
+	["yuo", "you"], //you
+	[" hw", " wh"], //which
+	["riet ", "rite "], //write
 ]
 
 var cancelers = [ //exceptions to the banned strings above
@@ -162,7 +185,8 @@ var cancelers = [ //exceptions to the banned strings above
 	["bd", "abd"],
 	["bd", "ubd"],
 	["cie", "scie"],
-	["bd", "ubd"]
+	["bd", "ubd"],
+	["yae", "hyae"], //hyaena
 ]
 
 function getVowelRatio(word) {
