@@ -392,6 +392,9 @@ var spellcheck = {
 
 	checkSpelling: function (word) {
 
+		if(!word) { //there isn't any way to spellcheck an empty string
+			return true;
+		}
 		var input = spellcheck.stemmer(word.toLowerCase().replace(/[\.\,\;\!\"\'\(\)]/g, "")).replace(/\wi$/g, ""); //ignore punctuation characters. The regex is because porter-stemmer sometimes makes words end in "i" (for example: badly -> badli), so we need just the root
 
 		if (/[\W\d]/g.test(input)) { //non-letter characters we can't check spelling for
