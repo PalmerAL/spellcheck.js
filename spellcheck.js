@@ -64,7 +64,7 @@ var spellcheck = {
 	},
 
 	preprocess: function (word) {
-		return word.toLowerCase().replace(/[\.\,\;\!\"\'\(\)]/g, ""); //ignore punctuation characters.
+		return word.toLowerCase().replace(/[\.\,\;\!\"\(\)]/g, ""); //ignore punctuation characters.
 	},
 
 	checkSpelling: function (word) {
