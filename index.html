@@ -7,7 +7,7 @@
 <body>
 	<h1>Spellcheck.js: a javascript spellchecker</h1>
 	<h2>What is it?</h2>
-	<p>Spellcheck.js is a javascript spellchecker that allows for checking if a word is spelled correctly, and finding the best replacement for a misspelled word. It uses <a href="http://wordlist.aspell.net/">the SCOWL word list</a>, a list of common misspellings, and some regex. For finding replacements for a word, it uses the <a href="http://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html">Sift4 string-distance algorithm</a>.
+	<p>Spellcheck.js is a javascript spellchecker that allows for checking if a word is spelled correctly, and finding the best replacement for a misspelled word. It uses a list of common English words, along with word frequency. For finding replacements for a word, it uses the <a href="http://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html">Sift4 string-distance algorithm</a>.
 	</p>
 
 
@@ -47,6 +47,7 @@
 		#output:before {
 			content: "best suggestion: ";
 		}
+
 	</style>
 	<h3>Demo</h3> Type a misspelled word:
 
