@@ -1,7 +1,11 @@
 var spellcheck = {
 
 	//performance-speed adjustment. Higher numbers mean faster but less accurate.
-	min_word_freq: 2,
+	min_word_freq: 4,
+
+	punctuationRegex: /[\.\,\;\!\"\(\)]/g,
+	notWordRegex: /\W/g,
+	notWordAndDigitRegex: /[\W\d]/g,
 
 	//sift4 from http://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html
 
@@ -64,7 +68,7 @@ var spellcheck = {
 	},
 
 	preprocess: function (word) {
-		return word.toLowerCase().replace(/[\.\,\;\!\"\(\)]/g, ""); //ignore punctuation characters.
+		return word.toLowerCase().replace(spellcheck.punctuationRegex, ""); //ignore punctuation characters.
 	},
 
 	checkSpelling: function (word) {
@@ -74,7 +78,7 @@ var spellcheck = {
 		}
 		var input = spellcheck.preprocess(word);
 
-		if (/[\W\d]/g.test(input)) { //non-letter characters we can't check spelling for
+		if (spellcheck.notWordAndDigitRegex.test(input)) { //non-letter characters we can't check spelling for
 			return true;
 		}
 
@@ -89,19 +93,23 @@ var spellcheck = {
 		return false;
 	},
 	getBestReplacement: function (word) {
-		var input = word.toLowerCase().replace(/\W/g, ""); //ignore punctuation characters
+		if (word[0].toUpperCase() == word[0]) {
+			var isUpper = true;
+		}
+		var input = word.toLowerCase().replace(spellcheck.notWordRegex, ""); //ignore punctuation characters
 
 		if (!spellcheck.dict) {
 			return word;
 		}
 
-		var match = input;
-		var diff = 99;
+		var match = input,
+			diff = 99,
+			ndiff;
 
 		var diffTies = [];
 		for (var word in spellcheck.dict) {
-			if (spellcheck.dict[word] >= spellcheck.min_word_freq) {
-				var ndiff = spellcheck.sift4(input, word);
+			if (spellcheck.dict[word] > spellcheck.min_word_freq) {
+				ndiff = spellcheck.sift4(input, word);
 				if (ndiff < diff) {
 					match = word;
 					diff = ndiff;
@@ -112,11 +120,18 @@ var spellcheck = {
 			}
 		}
 
-		diffTies.forEach(function (t) {
-			if (spellcheck.dict[t] > spellcheck.dict[match]) {
-				match = t;
+
+		for (var i = 0, len = diffTies.length; i < len; ++i) {
+			if (spellcheck.dict[diffTies[i]] > spellcheck.dict[match]) {
+				match = diffTies[i];
 			}
-		});
+		};
+
+		if (isUpper) {
+			match = match.split("")
+			match[0] = match[0].toUpperCase();
+			return match.join("");
+		}
 
 		return match;
 	}
